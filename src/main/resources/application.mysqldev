@@ -1,0 +1,10 @@
+server.port=8900
+spring.application.name=fluidauth
+#spring.jpa.generate-ddl=true
+spring.jpa.hibernate.ddl-auto=create
+spring.datasource.url=jdbc:mariadb://127.0.0.1:3306/fluidauth
+spring.datasource.username=root
+spring.datasource.password=root01
+spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.MariaDBDialect
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+spring.jpa.show-sql=true
