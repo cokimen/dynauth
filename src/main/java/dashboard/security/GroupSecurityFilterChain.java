@@ -33,35 +33,12 @@ public class GroupSecurityFilterChain {
     @Autowired
     public GroupUserDetailsService groupUserDetailsService;
 
-    @Autowired
-    private DataSource datasource;
+
 
 
     @Bean
     public PasswordEncoder getPasswordEncoderBcrypt() {
         return new BCryptPasswordEncoder();
-    }
-
-
-    @Bean
-    public UserDetailsService jdbcUserFilterChain() throws Exception {
-
-        System.out.println("Invoked");
-
-        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(
-                datasource
-        );
-
-        jdbcUserDetailsManager.setUsersByUsernameQuery("select usercode,passcode,status_active "
-                + "from mst_user "
-                + "where usercode = ?");
-        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("SELECT usercode, authority\n" +
-                "FROM mst_user   lEFT JOIN mst_grouprole_to_role \n" +
-                "ON usercode = ref_grouprolecode WHERE usercode = ?");
-        jdbcUserDetailsManager.setRolePrefix("");
-
-        logger.info("OKEEEE");
-        return jdbcUserDetailsManager;
     }
 
 
@@ -132,7 +109,7 @@ public class GroupSecurityFilterChain {
         AuthenticationManagerBuilder authenticationManagerBuilder = http
                 .getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder
-                .userDetailsService( jdbcUserFilterChain());
+                .userDetailsService(groupUserDetailsService.jdbcUserFilterChain());
 
 
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
