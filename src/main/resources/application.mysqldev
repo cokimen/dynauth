@@ -8,3 +8,17 @@ spring.datasource.password=root01
 spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.MariaDBDialect
 spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
 spring.jpa.show-sql=true
+class OncePerRequestFilter extends GenericFilterBean
+
+
+curl -X GET -H "Content-Type: application/json" -u user2:password 127.0.0.1:8900/webapp/oke
+
+users.username("admin2").password("cokimen1").roles("USER", "ADMIN").build()
+
+
+@Override
+@Bean
+UserDetailsService
+
+
+hint: Disable this message with "git config advice.diverging false"
