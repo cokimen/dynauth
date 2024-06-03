@@ -29,7 +29,9 @@ public class GroupUserDetailsService {
     @Bean
     public UserDetailsService userDetailsService1() throws Exception {
         // ensure the passwords are encoded properly
-        User.UserBuilder users = User.withDefaultPasswordEncoder();
+        User.UserBuilder users = User.withDefaultPasswordEncoder().passwordEncoder( x -> {
+            return (new BCryptPasswordEncoder()).encode(x);
+        });
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(users.username("user1").password("password").roles("USER").build());
         manager.createUser(users.username("admin1").password("password").roles("USER", "ADMIN").build());

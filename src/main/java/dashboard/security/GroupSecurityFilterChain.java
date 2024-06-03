@@ -129,6 +129,9 @@ public class GroupSecurityFilterChain {
     @Order(4)
     SecurityFilterChain freeFilterChain(HttpSecurity http) throws Exception {
         return http
+                .csrf( x -> {
+                    x.disable();
+                })
                 .authorizeHttpRequests(auth -> {
                             auth.requestMatchers("/**").permitAll();
                             auth.requestMatchers("/password/**").permitAll();
@@ -136,6 +139,7 @@ public class GroupSecurityFilterChain {
                             auth.anyRequest().authenticated();
                         }
                 )
+
                 .formLogin(withDefaults())
                 .build();
     }
